@@ -2,16 +2,32 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 
-const database = mysql.createPool({
+const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "1234",
-  database: "",
+  password: "",
+  database: "simplecrud",
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error("Erro ao conectar ao banco de dados: " + err.stack);
+    return;
+  }
+  console.log("Conexão com o banco de dados estabelecida com sucesso.");
 });
 
 app.get("/", (request, result) => {
-  result.send("Hello world");
-  //let SQL = "";
+  let showItems = "SELECT * FROM crud";
+  let INSERT =
+    "INSERT INTO crud ( id, name, price, category ) VALUES ( '4', 'Ideapad', 'R$2500.00', 'Notebook' )";
+
+  db.query(showItems, (error, results) => {
+    if (error) throw error;
+    console.log("Os resultados da consulta são: ", results);
+    result.send(results);
+    return;
+  });
 });
 
 app.listen(3001, () => {
