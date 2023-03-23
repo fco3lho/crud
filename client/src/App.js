@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-
 import "./App.css";
+
+//Leva os dados para o backend
+import Axios from "axios";
 
 function App() {
   const [values, setValues] = useState();
@@ -15,7 +17,13 @@ function App() {
 
   // Envia os dados do formulário ao clicar no botão.
   const handleSubmit = (e) => {
-    console.log(values);
+    Axios.post("http://localhost:3001/register", {
+      name: values.name,
+      price: values.cost,
+      category: values.category,
+    }).then((response) => {
+      console.log(response);
+    });
   };
 
   return (
