@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 //Leva os dados para o backend
 import Axios from "axios";
 
+//Components
+import Card from "./components/Card";
+
 function App() {
   const [values, setValues] = useState();
+  const [items, setItems] = useState();
 
   // Salva os dados alterados no formulário.
   const handleChangeValues = (e) => {
@@ -25,6 +29,13 @@ function App() {
       console.log(response);
     });
   };
+
+  //Puxa os dados contidos no endereço especificado
+  useEffect(() => {
+    Axios.get("http://localhost:3001/getCards").then((response) => {
+      setItems(response.data);
+    });
+  }, []);
 
   return (
     <div className="app-container">
@@ -56,6 +67,12 @@ function App() {
           Cadastrar
         </button>
       </div>
+
+      {/* Mostra todos os itens da tabela do banco de dados */}
+      {typeof items !== "undefined" &&
+        items.map((value) => {
+          return <Card></Card>;
+        })}
     </div>
   );
 }
