@@ -25,20 +25,21 @@ app.use(express.json());
 //Posta novo objeto no banco de dados
 app.post("/register", (request, result) => {
   const { name } = request.body;
+  const { address } = request.body;
   const { price } = request.body;
-  const { category } = request.body;
+  const { contact } = request.body;
 
   let SQL =
-    "INSERT INTO crud ( name, price, category ) VALUES ( ?, ?, ? )";
+    "INSERT INTO game ( name, address, price, contact ) VALUES ( ?, ?, ?, ? )";
 
-  db.query(SQL, [name, price, category], (error, result) => {
+  db.query(SQL, [name, address, price, contact], (error, result) => {
     console.log(error);
   });
 });
 
 //Mostra todos os itens da tabela do banco de dados
 app.get("/getCards", (request, result) => {
-  let SQL = "SELECT * FROM crud";
+  let SQL = "SELECT * FROM game";
 
   db.query(SQL, (error, results) => {
     if (error) throw error;

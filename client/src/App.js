@@ -23,8 +23,9 @@ function App() {
   const handleSubmit = (e) => {
     Axios.post("http://localhost:3001/register", {
       name: values.name,
-      price: values.cost,
-      category: values.category,
+      address: values.address,
+      price: values.price,
+      contact: values.contact,
     }).then((response) => {
       console.log(response);
     });
@@ -40,25 +41,32 @@ function App() {
   return (
     <div className="app-container">
       <div className="register-container">
-        <h1>Lojinha do Felp</h1>
+        <h1>Registrar pelada</h1>
         <input
           type="text"
           name="name"
-          placeholder="Nome"
+          placeholder="Nome da quadra"
           className="register-input"
           onChange={handleChangeValues}
         />
         <input
           type="text"
-          name="cost"
-          placeholder="Preço"
+          name="address"
+          placeholder="Endereço"
           className="register-input"
           onChange={handleChangeValues}
         />
         <input
           type="text"
-          name="category"
-          placeholder="Categoria"
+          name="price"
+          placeholder="Preço da hora"
+          className="register-input"
+          onChange={handleChangeValues}
+        />
+        <input
+          type="text"
+          name="contact"
+          placeholder="Contato"
           className="register-input"
           onChange={handleChangeValues}
         />
