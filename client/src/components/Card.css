@@ -12,3 +12,8 @@
 
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.cardContainer:hover{
+  color: greenyellow;
+  transition: .3s;
+}

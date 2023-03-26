@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <div className="register-container">
+      <form className="register-container" onSubmit={handleSubmit}>
         <h1>Registrar pelada</h1>
         <input
           type="text"
@@ -71,10 +71,8 @@ function App() {
           onChange={handleChangeValues}
         />
 
-        <button className="register-button" onClick={() => handleSubmit()}>
-          Cadastrar
-        </button>
-      </div>
+        <button className="register-button">Cadastrar</button>
+      </form>
 
       {/* Mostra todos os itens da tabela do banco de dados */}
       {typeof items !== "undefined" &&
