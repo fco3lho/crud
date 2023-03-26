@@ -4,7 +4,6 @@
   border-radius: 1em;
   margin: .75em;
   padding: .5em;
-  cursor: pointer;
 
   display: flex;
   align-items: center;
@@ -13,7 +12,16 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.cardContainer:hover{
-  color: greenyellow;
+.actions i{
+  cursor: pointer;
+  margin-right: .5em;
+  background-color: #282c34;
+  color: #fff;
+  padding: .4em;
+  border-radius: 1em;
+}
+
+.actions i:hover{
+  color: aquamarine;
   transition: .3s;
 }
