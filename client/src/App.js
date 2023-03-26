@@ -79,7 +79,18 @@ function App() {
       {/* Mostra todos os itens da tabela do banco de dados */}
       {typeof items !== "undefined" &&
         items.map((value) => {
-          return <Card></Card>;
+          return (
+            <Card
+              key={value.id}
+              listCard={items}
+              setListCard={setItems}
+              id={value.id}
+              name={value.name}
+              address={value.address}
+              price={value.price}
+              contact={value.contact}
+            ></Card>
+          );
         })}
     </div>
   );

@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
 
-const Card = () => {
+import styles from "./Card.css";
+
+const Card = (props) => {
   return (
-    <div>
-      <h1>Card</h1>
+    <div className="cardContainer">
+      <h2>{props.name}</h2>
+      <p>{props.address}</p>
+      <p>{props.price}</p>
+      <p>{props.contact}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;
