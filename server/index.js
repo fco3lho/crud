@@ -22,7 +22,7 @@ db.connect((err) => {
 app.use(cors());
 app.use(express.json());
 
-//Posta novo objeto no banco de dados
+//Posta novo objeto no banco de dados (CREATE)
 app.post("/register", (request, result) => {
   const { name } = request.body;
   const { address } = request.body;
@@ -37,7 +37,7 @@ app.post("/register", (request, result) => {
   });
 });
 
-//Mostra todos os itens da tabela do banco de dados
+//Mostra todos os itens da tabela do banco de dados (READ)
 app.get("/getCards", (request, result) => {
   let SQL = "SELECT * FROM game";
 
@@ -45,6 +45,19 @@ app.get("/getCards", (request, result) => {
     if (error) throw error;
     console.log("Os resultados da consulta são: ", results);
     result.send(results);
+  });
+});
+
+//Deleta um item (linha) da tabela no banco de dados (DELETE)
+app.delete("/delete/:id", (req, res) => {
+  const { id } = req.params;
+  let mysql = "DELETE FROM game WHERE id = ?";
+  db.query(mysql, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
   });
 });
 

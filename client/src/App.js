@@ -19,7 +19,7 @@ function App() {
     }));
   };
 
-  // Envia os dados do formulário ao clicar no botão.
+  // Envia os dados do formulário ao clicar no botão (CREATE)
   const handleSubmit = (e) => {
     Axios.post("http://localhost:3001/register", {
       name: values.name,
@@ -31,7 +31,7 @@ function App() {
     });
   };
 
-  //Puxa os dados contidos no endereço especificado
+  //Puxa os dados contidos no endereço especificado (READ)
   useEffect(() => {
     Axios.get("http://localhost:3001/getCards").then((response) => {
       setItems(response.data);
