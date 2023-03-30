@@ -5,7 +5,7 @@ import "./App.css";
 import Axios from "axios";
 
 //Components
-import Card from "./components/Card";
+import Card from "./components/Card.js";
 
 function App() {
   const [values, setValues] = useState();
@@ -41,7 +41,7 @@ function App() {
   return (
     <div className="app-container">
       <form className="register-container" onSubmit={handleSubmit}>
-        <h1>Registrar pelada</h1>
+      <h1>Registrar pelada</h1>
         <input
           type="text"
           name="name"

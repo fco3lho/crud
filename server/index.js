@@ -10,6 +10,9 @@ const db = mysql.createConnection({
   database: "simplecrud",
 });
 
+app.use(cors());
+app.use(express.json());
+
 //Testa conexão com o banco de dados
 db.connect((err) => {
   if (err) {
@@ -18,9 +21,6 @@ db.connect((err) => {
   }
   console.log("Conexão com o banco de dados estabelecida com sucesso.");
 });
-
-app.use(cors());
-app.use(express.json());
 
 //Posta novo objeto no banco de dados (CREATE)
 app.post("/register", (request, result) => {
@@ -32,7 +32,7 @@ app.post("/register", (request, result) => {
   let SQL =
     "INSERT INTO game ( name, address, price, contact ) VALUES ( ?, ?, ?, ? )";
 
-  db.query(SQL, [name, address, price, contact], (error, result) => {
+  db.query(SQL, [name, address, price, contact], (error, res) => {
     console.log(error);
   });
 });
@@ -41,10 +41,26 @@ app.post("/register", (request, result) => {
 app.get("/getCards", (request, result) => {
   let SQL = "SELECT * FROM game";
 
-  db.query(SQL, (error, results) => {
+  db.query(SQL, (error, res) => {
     if (error) throw error;
-    console.log("Os resultados da consulta são: ", results);
-    result.send(results);
+    result.send(res);
+  });
+});
+
+//Atualiza um item (linha) da tabela no banco de dados (UPDATE)
+app.put("/edit", (request, result) => {
+  const { id } = request.body;
+  const { name } = request.body;
+  const { address } = request.body;
+  const { price } = request.body;
+  const { contact } = request.body;
+
+  let SQL =
+    "UPDATE game SET name = ?,address = ?,price = ?,contact = ? WHERE id = ?";
+
+  db.query(SQL, [name, address, price, contact, id], (error, res) => {
+    if (error) throw error;
+    result.send(res);
   });
 });
 
