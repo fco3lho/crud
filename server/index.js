@@ -16,51 +16,51 @@ app.use(express.json());
 //Testa conexão com o banco de dados
 db.connect((err) => {
   if (err) {
-    console.error("Erro ao conectar ao banco de dados: " + err.stack);
+    console.error("Error to database connect.", err.stack);
     return;
   }
-  console.log("Conexão com o banco de dados estabelecida com sucesso.");
+  console.log("Database connection successfully established!");
 });
 
 //Posta novo objeto no banco de dados (CREATE)
-app.post("/register", (request, result) => {
-  const { name } = request.body;
-  const { address } = request.body;
-  const { price } = request.body;
-  const { contact } = request.body;
+app.post("/register", (req, res) => {
+  const { name } = req.body;
+  const { address } = req.body;
+  const { price } = req.body;
+  const { contact } = req.body;
 
   let SQL =
     "INSERT INTO game ( name, address, price, contact ) VALUES ( ?, ?, ?, ? )";
 
-  db.query(SQL, [name, address, price, contact], (error, res) => {
+  db.query(SQL, [name, address, price, contact], (error, results) => {
     console.log(error);
   });
 });
 
 //Mostra todos os itens da tabela do banco de dados (READ)
-app.get("/getCards", (request, result) => {
+app.get("/getCards", (req, res) => {
   let SQL = "SELECT * FROM game";
 
-  db.query(SQL, (error, res) => {
+  db.query(SQL, (error, results) => {
     if (error) throw error;
-    result.send(res);
+    res.send(results);
   });
 });
 
 //Atualiza um item (linha) da tabela no banco de dados (UPDATE)
-app.put("/edit", (request, result) => {
-  const { id } = request.body;
-  const { name } = request.body;
-  const { address } = request.body;
-  const { price } = request.body;
-  const { contact } = request.body;
+app.put("/edit", (req, res) => {
+  const { id } = req.body;
+  const { name } = req.body;
+  const { address } = req.body;
+  const { price } = req.body;
+  const { contact } = req.body;
 
   let SQL =
-    "UPDATE game SET name = ?,address = ?,price = ?,contact = ? WHERE id = ?";
+    "UPDATE game SET name = ?, address = ?, price = ?, contact = ? WHERE id = ?";
 
-  db.query(SQL, [name, address, price, contact, id], (error, res) => {
+  db.query(SQL, [name, address, price, contact, id], (error, results) => {
     if (error) throw error;
-    result.send(res);
+    res.send(results);
   });
 });
 
@@ -68,15 +68,15 @@ app.put("/edit", (request, result) => {
 app.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
   let mysql = "DELETE FROM game WHERE id = ?";
-  db.query(mysql, id, (err, result) => {
-    if (err) {
-      console.log(err);
+  db.query(mysql, id, (error, results) => {
+    if (error) {
+      console.log(error);
     } else {
-      res.send(result);
+      res.send(results);
     }
   });
 });
 
 app.listen(3001, () => {
-  console.log("Funcionando");
+  console.log("Working...");
 });

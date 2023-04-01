@@ -78,6 +78,7 @@ const Card = (props) => {
           id="id"
           label="ID"
           defaultValue={props.id}
+          className="register-input"
           disabled
         />
         <input
