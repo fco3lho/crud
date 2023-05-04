@@ -13,6 +13,8 @@ const Card = (props) => {
     contact: props.contact,
   });
 
+  const [verify, setVerify] = useState(false);
+
   //Deleta um item (linha) da tabela no banco de dados (DELETE)
   const handleDelete = () => {
     Axios.delete(`http://localhost:3001/delete/${editValues.id}`).then(() => {
@@ -47,6 +49,7 @@ const Card = (props) => {
         })
       );
     });
+    setVerify(false);
   };
 
   const handleChangeValues = (e) => {
@@ -65,60 +68,67 @@ const Card = (props) => {
         <p>{props.price}</p>
         <p>{props.contact}</p>
         <div className="actions">
-          <i className="bi bi-pencil"></i>
+          <i className="bi bi-pencil" onClick={() => setVerify(true)}></i>
           <i className="bi bi-trash" onClick={() => handleDelete()}></i>
         </div>
       </div>
 
       {/* Formulário de edição */}
-      <form onSubmit={handleEditGame}>
-        <h1>Editando {props.name}</h1>
-        <input
-          type="text"
-          id="id"
-          label="ID"
-          defaultValue={props.id}
-          className="register-input"
-          disabled
-        />
-        <input
-          type="text"
-          id="name"
-          label="Nome da pelada"
-          defaultValue={props.name}
-          onChange={handleChangeValues}
-          name="name"
-          className="register-input"
-        />
-        <input
-          type="text"
-          id="address"
-          label="Endereço"
-          defaultValue={props.address}
-          onChange={handleChangeValues}
-          name="address"
-          className="register-input"
-        />
-        <input
-          type="text"
-          id="price"
-          label="Preço"
-          defaultValue={props.price}
-          onChange={handleChangeValues}
-          name="price"
-          className="register-input"
-        />
-        <input
-          type="text"
-          id="contact"
-          label="Contato"
-          defaultValue={props.contact}
-          onChange={handleChangeValues}
-          name="contact"
-          className="register-input"
-        />
-        <button>Editar</button>
-      </form>
+      {verify ? (
+        <form onSubmit={handleEditGame}>
+          <h1>Editando {props.name}</h1>
+          <input
+            type="text"
+            id="id"
+            label="ID"
+            defaultValue={props.id}
+            className="register-input"
+            disabled
+          />
+          <input
+            type="text"
+            id="name"
+            label="Nome da pelada"
+            defaultValue={props.name}
+            onChange={handleChangeValues}
+            name="name"
+            className="register-input"
+          />
+          <input
+            type="text"
+            id="address"
+            label="Endereço"
+            defaultValue={props.address}
+            onChange={handleChangeValues}
+            name="address"
+            className="register-input"
+          />
+          <input
+            type="text"
+            id="price"
+            label="Preço"
+            defaultValue={props.price}
+            onChange={handleChangeValues}
+            name="price"
+            className="register-input"
+          />
+          <input
+            type="text"
+            id="contact"
+            label="Contato"
+            defaultValue={props.contact}
+            onChange={handleChangeValues}
+            name="contact"
+            className="register-input"
+          />
+          <button>Editar</button>
+          <a href="#" onClick={() => setVerify(false)}>
+            Cancelar
+          </a>
+        </form>
+      ) : (
+        <div> </div>
+      )}
     </>
   );
 };
